@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import { images } from "./assets/assets";
 
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <div className="max-h-screen">
+      <img
+        src={images.logo}
+        alt="logo"
+        className="w-full h-screen object-cover"
+      />
+    </div>
+  );
+};
 
-export default App
+export default App;
