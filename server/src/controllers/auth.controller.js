@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import User from "../modules/user.js";
+import User from "../models/user.js";
 import generateToken from "../utils/generateToken.js";
 import hashPassword from "../utils/hashPassword.js";
 

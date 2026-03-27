@@ -1,5 +1,5 @@
 import cloudinary from "../configs/cloudinary.js";
-import User from "../modules/user.js";
+import User from "../models/user.js";
 
 // !UPDATE PROFILE PICTURE
 export const updateProfilePicture = async (req, res) => {
