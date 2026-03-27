@@ -45,6 +45,7 @@ app.post("/api/upload", upload.single("audio"), async (req, res) => {
       readerName,
       url: result.secure_url,
       description,
+      cloudinaryPublicID: result.public_id,
     });
     res.json({
       message: "Audio uploaded successfully",
@@ -56,10 +57,34 @@ app.post("/api/upload", upload.single("audio"), async (req, res) => {
   }
 });
 
+app.post("/api/delete", async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    const audioFile = await Audio.findById(id);
+
+    if (!audioFile) {
+      return res.status(404).json({ message: "Audio not found in database" });
+    }
+
+    await cloudinary.uploader.destroy(audioFile.cloudinaryPublicID, {
+      resource_type: "video",
+    });
+
+    await Audio.findByIdAndDelete(id);
+
+    res
+      .status(200)
+      .json({ message: "Audio deleted from Cloudinary and Database! 🗑️" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server Error: " + error.message });
+  }
+});
 app.get("/api/all", async (req, res) => {
   try {
     const allAudios = await Audio.find({});
-    res.status(200).json({ length:allAudios.length,audios: allAudios });
+    res.status(200).json({ length: allAudios.length, audios: allAudios });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

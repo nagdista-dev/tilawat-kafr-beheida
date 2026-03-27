@@ -5,6 +5,7 @@ const audioSchema = new mongoose.Schema(
     audioName: { type: String, required: true },
     url: { type: String, required: true },
     description: { type: String, required: true },
+    cloudinaryPublicID: { type: String, required: true },
   },
   { timestamps: true },
 );
